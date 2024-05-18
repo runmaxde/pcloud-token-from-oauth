@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pcloud-token-from-oauth</title>
+</head>
+
+<body>
+  <form>
+    <label for="client_id">Client ID</label>
+    <input type="" name="client_id" value="MEJjKgdvE57">
+    <label for="redirect_uri">Redirect URI</label>
+    <input type="" name="redirect_uri" value="">
+    <button type="submit">Login to get token</button>
+    <br>
+    <br>
+    <br>
+    <label for="token">Token</label>
+    <input disabled type="text" name="token" value="">
+
+    <label for="hostname">Hostname</label>
+    <input disabled type="text" name="hostname" value="">
+
+  </form>
+</body>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    width: 100%;
+    border: 1px solid #000;
+    padding: 10px;
+  }
+
+  input {
+    margin: 10px;
+    width: 100%;
+  }
+
+  button {
+    margin: 10px;
+  }
+</style>
+<script>
+  const clientId = document.querySelector('input[name="client_id"]').value;
+
+  const pageUrl = window.location.href.split('?')[0]; // remove query params from url
+  const redirectUri = document.querySelector('input[name="redirect_uri"]').value = pageUrl
+
+  document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = `https://my.pcloud.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`;
+    window.location.href = url;
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  document.querySelector('input[name="token"]').value = urlParams.get('code');;
+  document.querySelector('input[name="hostname"]').value = urlParams.get('hostname');;
+</script>
+
+</html>
