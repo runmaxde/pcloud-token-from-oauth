@@ -4,70 +4,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pcloud-token-from-oauth</title>
+  <title>OAuth Token Retrieval</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+      font-family: Arial, sans-serif;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 300px;
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background: white;
+      border-radius: 8px;
+    }
+
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input,
+    button {
+      padding: 8px;
+      margin: 10px 0;
+      width: calc(100% - 16px);
+      /* Adjust input width considering padding */
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #003580;
+    }
+  </style>
 </head>
 
 <body>
   <form>
     <label for="client_id">Client ID</label>
-    <input type="" name="client_id" value="MEJjKgdvE57">
+    <input id="client_id" name="client_id" value="MEJjKgdvE57">
+
     <label for="redirect_uri">Redirect URI</label>
-    <input type="" name="redirect_uri" value="">
+    <input id="redirect_uri" name="redirect_uri" value="">
+
     <button type="submit">Login to get token</button>
-    <br>
-    <br>
-    <br>
+
     <label for="token">Token</label>
-    <input disabled type="text" name="token" value="">
+    <input id="token" disabled type="text" name="token" value="">
 
     <label for="hostname">Hostname</label>
-    <input disabled type="text" name="hostname" value="">
-
+    <input id="hostname" disabled type="text" name="hostname" value="">
   </form>
+
+  <script>
+    const clientId = document.getElementById('client_id').value;
+    const pageUrl = window.location.href.split('?')[0]; // remove query params from url
+    document.getElementById('redirect_uri').value = pageUrl;
+
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = `https://my.pcloud.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${pageUrl}`;
+      window.location.href = url;
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('token').value = urlParams.get('code');
+    document.getElementById('hostname').value = urlParams.get('hostname');
+  </script>
 </body>
-<style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 300px;
-    width: 100%;
-    border: 1px solid #000;
-    padding: 10px;
-  }
-
-  input {
-    margin: 10px;
-    width: 100%;
-  }
-
-  button {
-    margin: 10px;
-  }
-</style>
-<script>
-  const clientId = document.querySelector('input[name="client_id"]').value;
-
-  const pageUrl = window.location.href.split('?')[0]; // remove query params from url
-  const redirectUri = document.querySelector('input[name="redirect_uri"]').value = pageUrl
-
-  document.querySelector('form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const url = `https://my.pcloud.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`;
-    window.location.href = url;
-  });
-
-  const urlParams = new URLSearchParams(window.location.search);
-  document.querySelector('input[name="token"]').value = urlParams.get('code');;
-  document.querySelector('input[name="hostname"]').value = urlParams.get('hostname');;
-</script>
 
 </html>
