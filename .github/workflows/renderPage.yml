@@ -2,9 +2,9 @@ name: Run and Commit on Changes
 
 on:
   push:
-    # paths:
-    #   - 'README.md'
-    #   - 'scripts/main.go'
+    paths:
+      - 'README.md'
+      - 'scripts/main.go'
 
 jobs:
   execute-and-commit:
