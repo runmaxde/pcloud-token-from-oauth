@@ -1,247 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pCloud OAuth Token Retrieval</title>
-  <style>
-    body {
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>
+      pCloud OAuth Token Retrieval
+    </title>
+    <style>
+      body {
       margin: auto;
       max-width: 500px;
       font-family: "Helvetica Neue", Arial, sans-serif;
-    }
+      }
 
-    form {
+      form {
       padding: 20px;
       border: none;
-    }
+      }
 
-    h1 {
+      h1 {
       color: #333333;
       font-size: 24px;
       text-align: center;
-    }
+      }
 
-    label {
+      label {
       font-weight: 500;
       margin-top: 12px;
       display: block;
       color: #555555;
-    }
+      }
 
-    input,
-    button {
+      input,
+      button {
       width: 100%;
       padding: 8px 10px;
       margin-top: 8px;
       border-radius: 5px;
       border: 1px solid #ccc;
       box-sizing: border-box;
-    }
+      }
 
-    button {
+      button {
       background-color: #0056b3;
       color: white;
       font-weight: bold;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s;
-    }
+      }
 
-    button:hover {
+      button:hover {
       background-color: #003580;
-    }
+      }
 
-    footer {
+      footer {
       text-align: center;
       font-size: 12px;
       margin-top: 20px;
-    }
+      }
 
-    .footer-text,
-    .link {
+      .footer-text,
+      .link {
       color: #333333;
-    }
+      }
 
-    .link {
+      .link {
       text-decoration: none;
-    }
+      }
 
-    .link:hover {
+      .link:hover {
       text-decoration: underline;
-    }
-  </style>
-</head>
+      }
+    </style>
+  </head>
+  <body>
+    <footer>
+      <p class="footer-text">
+        Made with ♥ by
+        <a href="https://github.com/runmaxde" class="link">
+          runmaxde
+        </a>
+      </p>
+      <a href="https://github.com/runmaxde/pcloud-token-from-oauth" class="link">
+        runmaxde/pcloud-token-from-oauth
+      </a>
+    </footer>
+    <form>
+      <h1>
+        pCloud OAuth Token Retrieval
+      </h1>
+      <label for="client_id">
+        Client ID
+      </label>
+      <input id="client_id" name="client_id" value="ABCDEFG"/>
+      <label for="redirect_uri">
+        Redirect URI
+      </label>
+      <input id="redirect_uri" name="redirect_uri" disabled="" value=""/>
+      <button type="submit">
+        Login to get token
+      </button>
+      <label for="token">
+        Token
+      </label>
+      <input id="token" disabled="" type="text" name="token" value=""/>
+      <label for="hostname">
+        Hostname
+      </label>
+      <input id="hostname" disabled="" type="text" name="hostname" value=""/>
+      <div id="content">
+        <article>
+          <h1>
+            pCloud Token from OAuth
+          </h1>
+          <h2>
+            Overview
+          </h2>
+          <p>
+            This application enables you to securely retrieve an API token for the pCloud API, suitable for use with tools like multler-pcloud, rsync, or other non-client-interactive applications.
+          </p>
+          <h2>
+            Requirements
+          </h2>
+          <ul>
+            <li>
+              <strong>
+                pCloud API App:
+              </strong>
+              Required for token retrieval. Visit
+              <a href="https://docs.pcloud.com">
+                pCloud API Apps
+              </a>
+              for setup and management information.
+            </li>
+            <li>
+              <strong>
+                Note:
+              </strong>
+              The creation of new apps is currently disabled.
+            </li>
+          </ul>
+          <h2>
+            Usage
+          </h2>
+          <p>
+            Choose from two setup options depending on your preference for ease of use or control:
+          </p>
+          <h3>
+            A: Easy - Hosted Version
+          </h3>
+          <ol>
+            <li>
+              <strong>
+                Access the Tool:
+              </strong>
+              <ul>
+                <li>
+                  Visit
+                  <a href="https://pcloud-token-from-oauth.vercel.app">
+                    pCloud Token from OAuth Hosted
+                  </a>
+                  .
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h3>
+            B: Advanced - Local Server
+          </h3>
+          <ol>
+            <li>
+              <strong>
+                Setup:
+              </strong>
+              <ul>
+                <li>
+                  Clone this repository to your local machine.
+                </li>
+                <li>
+                  Serve the application locally by running
+                  <code>
+                    npx serve -l PORT
+                  </code>
+                  in your terminal, replacing
+                  <code>
+                    PORT
+                  </code>
+                  with your desired port number.
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h2>
+            General Instructions for Both Options (A and B)
+          </h2>
+          <ol>
+            <li>
+              <p>
+                <strong>
+                  Retrieve Your Client ID:
+                </strong>
+              </p>
+              <ul>
+                <li>
+                  Navigate to:
+                  <strong>
+                    Your App &gt; Details &gt; Client ID
+                  </strong>
+                  on the pCloud API Apps page.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  Set Up the Redirect URI:
+                </strong>
+              </p>
+              <ul>
+                <li>
+                  For the hosted version, use:
+                  <code>
+                    https://pcloud-token-from-oauth.vercel.app
+                  </code>
+                  .
+                </li>
+                <li>
+                  For the local version, use:
+                  <code>
+                    http://localhost:PORT
+                  </code>
+                  , replacing
+                  <code>
+                    PORT
+                  </code>
+                  with your chosen port number.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  Authenticate and Retrieve Token:
+                </strong>
+              </p>
+              <ul>
+                <li>
+                  Enter your Client ID in the provided input field on the index page.
+                </li>
+                <li>
+                  Click the “Authenticate and Retrieve Token” button.
+                </li>
+                <li>
+                  Log in with your pCloud user credentials.
+                </li>
+                <li>
+                  Allow access to the app, ensuring the app name matches the Client ID specified in your pCloud API app settings.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  Retrieve and Use Your Token:
+                </strong>
+              </p>
+              <ul>
+                <li>
+                  Copy the token displayed in the response field.
+                </li>
+                <li>
+                  Use this token as required for your applications.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  Secure Your Application:
+                </strong>
+              </p>
+              <ul>
+                <li>
+                  After completing your tasks, remember to remove the redirect URI under
+                  <strong>
+                    Your App &gt; Settings &gt; Redirect URIs
+                  </strong>
+                  to secure your application.
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h2>
+            Security Note
+          </h2>
+          <p>
+            Always adhere to the best security practices, particularly in managing your Client ID and token to prevent unauthorized access.
+          </p>
+        </article>
+      </div>
+    </form>
+    <script>
+      const clientId = document.getElementById("client_id").value
+      const pageUrl = window.location.href.split("?")[0]
+      document.getElementById("redirect_uri").value = pageUrl
 
-<body>
-  <footer>
-    <p class="footer-text">
-      Made with ♥ by
-      <a href="https://github.com/runmaxde" class="link"> runmaxde </a>
-    </p>
-    <a href="https://github.com/runmaxde/pcloud-token-from-oauth" class="link"> runmaxde/pcloud-token-from-oauth </a>
-  </footer>
-  <form>
-    <h1>pCloud OAuth Token Retrieval</h1>
-    <label for="client_id"> Client ID </label>
-    <input id="client_id" name="client_id" value="ABCDEFG" />
-    <label for="redirect_uri"> Redirect URI </label>
-    <input id="redirect_uri" name="redirect_uri" disabled="" value="" />
-    <button type="submit">Login to get token</button>
-    <label for="token"> Token </label>
-    <input id="token" disabled="" type="text" name="token" value="" />
-    <label for="hostname"> Hostname </label>
-    <input id="hostname" disabled="" type="text" name="hostname" value="" />
-    <div id="content">
-      <article>
-        <h1>pCloud Token from OAuth</h1>
-        <h2>Overview</h2>
-        <p>
-          This application enables you to securely retrieve an API token for the pCloud API, suitable for use with
-          tools like multler-pcloud, rsync, or other non-client-interactive applications.
-        </p>
-        <h2>Requirements</h2>
-        <ul>
-          <li>
-            <strong> pCloud API App: </strong>
-            Required for token retrieval. Visit
-            <a href="https://docs.pcloud.com"> pCloud API Apps </a>
-            for setup and management information.
-          </li>
-          <li>
-            <strong> Note: </strong>
-            The creation of new apps is currently disabled.
-          </li>
-        </ul>
-        <h2>Usage</h2>
-        <p>Choose from two setup options depending on your preference for ease of use or control:</p>
-        <h3>A: Easy - Hosted Version</h3>
-        <ol>
-          <li>
-            <strong> Access the Tool: </strong>
-            <ul>
-              <li>
-                Visit
-                <a href="https://pcloud-token-from-oauth.vercel.app"> pCloud Token from OAuth Hosted </a>
-                .
-              </li>
-            </ul>
-          </li>
-        </ol>
-        <h3>B: Advanced - Local Server</h3>
-        <ol>
-          <li>
-            <strong> Setup: </strong>
-            <ul>
-              <li>Clone this repository to your local machine.</li>
-              <li>
-                Serve the application locally by running
-                <code> npx serve -l PORT </code>
-                in your terminal, replacing
-                <code> PORT </code>
-                with your desired port number.
-              </li>
-            </ul>
-          </li>
-        </ol>
-        <h2>General Instructions for Both Options (A and B)</h2>
-        <ol>
-          <li>
-            <p>
-              <strong> Retrieve Your Client ID: </strong>
-            </p>
-            <ul>
-              <li>
-                Navigate to:
-                <strong> Your App &gt; Details &gt; Client ID </strong>
-                on the pCloud API Apps page.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p>
-              <strong> Set Up the Redirect URI: </strong>
-            </p>
-            <ul>
-              <li>
-                For the hosted version, use:
-                <code> https://pcloud-token-from-oauth.vercel.app </code>
-                .
-              </li>
-              <li>
-                For the local version, use:
-                <code> http://localhost:PORT </code>
-                , replacing
-                <code> PORT </code>
-                with your chosen port number.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p>
-              <strong> Authenticate and Retrieve Token: </strong>
-            </p>
-            <ul>
-              <li>Enter your Client ID in the provided input field on the index page.</li>
-              <li>Click the “Authenticate and Retrieve Token” button.</li>
-              <li>Log in with your pCloud user credentials.</li>
-              <li>
-                Allow access to the app, ensuring the app name matches the Client ID specified in your pCloud API app
-                settings.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p>
-              <strong> Retrieve and Use Your Token: </strong>
-            </p>
-            <ul>
-              <li>Copy the token displayed in the response field.</li>
-              <li>Use this token as required for your applications.</li>
-            </ul>
-          </li>
-          <li>
-            <p>
-              <strong> Secure Your Application: </strong>
-            </p>
-            <ul>
-              <li>
-                After completing your tasks, remember to remove the redirect URI under
-                <strong> Your App &gt; Settings &gt; Redirect URIs </strong>
-                to secure your application.
-              </li>
-            </ul>
-          </li>
-        </ol>
-        <h2>Security Note</h2>
-        <p>
-          Always adhere to the best security practices, particularly in managing your Client ID and token to prevent
-          unauthorized access.
-        </p>
-      </article>
-    </div>
-  </form>
-  <script>
-    const clientId = document.getElementById("client_id").value
-    const pageUrl = window.location.href.split("?")[0]
-    document.getElementById("redirect_uri").value = pageUrl
-
-    document.querySelector("form").addEventListener("submit", function (e) {
+      document.querySelector("form").addEventListener("submit", function (e) {
       e.preventDefault()
       const redirectUriInput = document.getElementById("redirect_uri")
       if (!redirectUriInput.value.startsWith("http")) {
-        alert("Please enter a valid URL starting with http:// or https:// for the Redirect URI.")
-        return
+      alert("Please enter a valid URL starting with http:// or https:// for the Redirect URI.")
+      return
       }
       const url = `https://my.pcloud.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriInput.value}`
       window.location.href = url
-    })
+      })
 
-    const urlParams = new URLSearchParams(window.location.search)
-    document.getElementById("token").value = urlParams.get("code")
-    document.getElementById("hostname").value = urlParams.get("hostname")
-  </script>
-</body>
-
+      const urlParams = new URLSearchParams(window.location.search)
+      document.getElementById("token").value = urlParams.get("code")
+      document.getElementById("hostname").value = urlParams.get("hostname")
+    </script>
+  </body>
 </html>
