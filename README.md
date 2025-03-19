@@ -20,8 +20,9 @@ Choose from two setup options depending on your preference for ease of use or co
    - Serve the application locally by running `npx serve -l PORT` in your terminal, replacing `PORT` with your desired port number.
 
 ## General Instructions for Both Options (A and B)
-1. **Retrieve Your Client ID:**
+1. **Retrieve Your Client ID and Client Secret:**
    - Navigate to: **Your App > Details > Client ID** on the pCloud API Apps page.
+   - Navigate to: **Your App > Details > Client Secret** on the pCloud API Apps page.
 
 2. **Set Up the Redirect URI:**
    - For the hosted version, use: `https://pcloud-token-from-oauth.vercel.app`.
@@ -29,11 +30,14 @@ Choose from two setup options depending on your preference for ease of use or co
 
 3. **Authenticate and Retrieve Token:**
    - Enter your Client ID in the provided input field on the index page.
-   - Click the "Authenticate and Retrieve Token" button.
+   - Click the "Login to get code" button.
    - Log in with your pCloud user credentials.
    - Allow access to the app, ensuring the app name matches the Client ID specified in your pCloud API app settings.
 
 4. **Retrieve and Use Your Token:**
+   - Make sure both Hostname and Code fields are filled.
+   - Provide Client ID and Secret.
+   - Click the "Get Access Token" button.
    - Copy the token displayed in the response field.
    - Use this token as required for your applications.
 
